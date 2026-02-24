@@ -1,0 +1,190 @@
+/* === 1. DISEÑO GENERAL === */
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+
+div.contenedor {
+    width: 100%;
+    background-color: rgb(242, 245, 245);
+    /* 1. Mide al menos el 100% de la altura de la pantalla (Viewport Height) */
+    min-height: 100vh; 
+    /* 2. Prepara el contenedor para que podamos "anclar" cosas dentro de él */
+    position: relative; 
+    /* 3. Deja un espacio invisible al fondo para que el pie de página no tape tu texto */
+    padding-bottom: 80px; 
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+header {
+    padding: 1.5em;
+    color: white;
+    background-color: #2c3e50;
+    text-align: center;
+    margin: 0;
+}
+
+/* === 2. DISEÑO PARA PC === */
+nav {
+    float: left;
+    width: 20%;
+    max-width: 250px;
+    margin: 0;
+    padding: 2em 1em;
+}
+
+nav ol {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* === ESTILOS PARA LOS BOTONES DEL MENÚ === */
+nav ol li {
+    background-color: #e2e8f0; /* Un gris azulado claro para los botones inactivos */
+    margin-bottom: 10px; /* Separación entre los cuadritos */
+    border-radius: 6px; /* Bordes redondeados */
+    font-weight: bold;
+    transition: all 0.3s ease; /* Hace que el cambio de color al pasar el mouse sea suave */
+    text-align: center;
+}
+
+/* Hacemos que toda la caja sea clickeable, no solo el texto */
+nav ol li a {
+    display: block; 
+    padding: 12px 10px; 
+    color: #333333;
+    text-decoration: none;
+}
+
+/* Efecto al pasar el mouse por encima (Hover) */
+nav ol li:hover {
+    background-color: #cbd5e1; /* Se oscurece un poquito al pasar el mouse */
+    transform: translateX(5px); /* Un efecto pro: el botón se mueve un poquito a la derecha */
+}
+
+/* === EL CUADRITO SELECCIONADO (Página actual) === */
+nav ol li.activo {
+    background-color: #2c3e50; /* Mismo color de tu encabezado para combinar perfecto */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombrita para que resalte */
+    transform: scale(1.05); /* Lo hace un poquitito más grande */
+}
+
+/* La letra del cuadrito seleccionado debe ser blanca para que se lea bien */
+nav ol li.activo a {
+    color: white; 
+}
+article {
+    margin-left: 20%;
+    border-left: 1px solid #cccccc;
+    padding: 3em 5%;
+    line-height: 1.6;
+    color: #444444;
+    
+    /* === LA MAGIA DE LA VENTANA INTERNA === */
+    height: 60vh; /* Fija la altura de la caja */
+    overflow-y: auto; /* Crea la barra de scroll vertical si el texto es muy largo */
+}
+
+/* === PIE DE PÁGINA (Magia para pegarlo abajo) === */
+footer {
+    padding: 1.5em;
+    color: white;
+    background-color: #2c3e50;
+    text-align: center;
+    margin: 0;
+    /* 4. Lo saca del flujo normal y lo pega estrictamente abajo */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* === 3. DISEÑO PARA CELULARES (Responsive) === */
+@media screen and (max-width: 768px) {
+    nav {
+        float: none;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        padding: 1em 0;
+        border-bottom: 1px solid #cccccc;
+    }
+    
+    nav ol li {
+        display: inline-block;
+        padding: 5px 10px;
+    }
+
+    article {
+        margin-left: 0;
+        border-left: none;
+        padding: 1.5em;
+    }
+}
+
+/* === ESTILOS PARA LA DISTRIBUCIÓN DE IMAGEN Y TEXTO (FLEXBOX) === */
+
+.caja-columnas {
+    display: flex; /* Esto crea las dos columnas automáticamente */
+    gap: 30px; /* Esto deja un espacio en blanco elegante entre la imagen y el texto */
+    align-items: flex-start; /* Asegura que ambos empiecen alineados desde arriba */
+}
+
+/* Configuramos la imagen para que no se deforme ni se haga chiquita */
+img.imagen-web {
+    width: 350px; 
+    flex-shrink: 0; /* Evita que el texto empuje y aplaste la imagen */
+}
+
+/* Configuramos el texto para que esté justificado */
+.texto-justificado p {
+    text-align: justify; /* Hace que los bordes del texto queden rectos de ambos lados */
+    margin-top: 0; /* Quita el espacio extra arriba para alinearse con la imagen */
+}
+
+/* === RESPONSIVE: Para que se vea bien en celulares === */
+@media screen and (max-width: 768px) {
+    .caja-columnas {
+        flex-direction: column; /* En celular, pone la imagen arriba y el texto abajo */
+        align-items: center;
+    }
+    img.imagen-web {
+        width: 100%;
+        max-width: 400px;
+    }
+}
+/* === BOTONES DE NAVEGACIÓN (FLECHAS) === */
+.navegacion-flechas {
+    display: flex;
+    justify-content: space-between; /* Pone el botón "Anterior" a la izquierda y "Siguiente" a la derecha */
+    margin-top: 40px; /* Separación del texto de arriba */
+    padding-top: 20px;
+    border-top: 1px solid #cccccc; /* Una línea delgada para separar el final del artículo */
+}
+
+/* Clase especial para la página de Inicio (que solo tiene botón a la derecha) */
+.solo-siguiente {
+    justify-content: flex-end; 
+}
+
+.btn-flecha {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #2c3e50; /* El azul oscuro de tu página */
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.btn-flecha:hover {
+    background-color: #1a252f;
+    transform: translateY(-2px); /* El botón da un pequeño "saltito" hacia arriba */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
